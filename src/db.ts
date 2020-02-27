@@ -2,7 +2,7 @@ import { connect, ConnectionOptions } from "mongoose";
 
 export class DB {
   private static instance: DB;
-  private constructor() {}
+  private constructor() { }
 
   static connect() {
     console.log("CONNECTING TO DATABASE...");
@@ -17,7 +17,8 @@ export class DB {
   private static get options(): ConnectionOptions {
     return {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useCreateIndex: true
     };
   }
 }
