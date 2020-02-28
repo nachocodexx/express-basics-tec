@@ -12,7 +12,7 @@ import { App } from "./server";
 // }
 
 async function bootstrap() {
-  //   thisTakes10Seconds();
+  // await thisTakes10Seconds();
   await DB.connect();
   console.log("DB connected successfully...");
   await App.run()

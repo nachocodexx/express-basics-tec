@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import TasksModel from '../models/tasks/task.model';
 import { createToken } from "../services/jwt.service";
 import { ITask } from "../models/tasks/task.interface";
+import taskModel from "../models/tasks/task.model";
 
 export async function getTasks(req: Request, res: Response) {
     try {
@@ -22,6 +23,32 @@ export async function createTask(req: Request, res: Response) {
         res.status(200).send({ taskId: task.id });
 
     } catch (error) {
+        res.status(error.status || 500).send({ message: error.message || 'Something went wrong :(' })
+    }
+}
+
+export async function deleteTask(req: Request, res: Response) {
+    try {
+        const taskId: string = req.params.id;
+        console.log(taskId);
+        await taskModel.findByIdAndRemove(taskId).exec();
+
+        res.status(200).send({ taskId, deleted: true });
+
+    } catch (error) {
+
+        res.status(error.status || 500).send({ message: error.message || 'Something went wrong :(' })
+    }
+}
+
+export async function updatedTask(req: Request, res: Response) {
+    try {
+        const taskId: string = req.params.id;
+
+        res.status(200).send({ taskId, updated: true });
+
+    } catch (error) {
+
         res.status(error.status || 500).send({ message: error.message || 'Something went wrong :(' })
     }
 }
